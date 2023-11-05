@@ -1,15 +1,11 @@
-import { useContext, useState } from "react";
-import { TasksContext } from "../context/TasksContext";
-import { addTask } from "../store/tasks/actions";
+import { useState } from "react";
 
 const NewTask = () => {
   const [text, setText] = useState("");
-  const { dispatch } = useContext(TasksContext);
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    dispatch(addTask(text));
     setText("");
   }
 
