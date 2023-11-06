@@ -1,11 +1,13 @@
+import { useContext } from "react";
 import Task from "./Task";
-
-const initialTasks = [{ id: 123, text: "Eat lunch", done: false }];
+import { TasksContext } from "../context/TasksContext";
 
 const Tasks = () => {
+  const { state } = useContext(TasksContext);
+
   return (
     <div className='flex flex-col gap-3'>
-      {initialTasks.map((task) => (
+      {state.map((task) => (
         <Task key={task.id} task={task} />
       ))}
     </div>

@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { TasksContext } from "../context/TasksContext";
+import { actionTypes } from "../store/actionTypes";
 
 const Task = ({ task }) => {
   const { id, text: initialText } = task ? task : {};
@@ -8,12 +10,26 @@ const Task = ({ task }) => {
 
   const inputRef = useRef();
 
+  const { state, dispatch } = useContext(TasksContext);
+  console.log(state);
+
   function handleSubmit(e) {
     e.preventDefault();
     setIsEditing(false);
+
+    dispatch({
+      type: actionTypes.edit,
+      id,
+      text,
+    });
   }
 
-  function handleDelete() {}
+  function handleDelete() {
+    dispatch({
+      type: actionTypes.delete,
+      id,
+    });
+  }
 
   useEffect(() => {
     if (isEditing) {

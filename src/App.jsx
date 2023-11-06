@@ -1,12 +1,15 @@
 import NewTask from "./components/NewTask";
 import Tasks from "./components/Tasks";
+import TasksContextProvider, { TasksContext } from "./context/TasksContext";
 
 function App() {
   return (
-    <main>
-      <NewTask />
-      <Tasks />
-    </main>
+    <TasksContextProvider>
+      <main>
+        <NewTask />
+        <Tasks />
+      </main>
+    </TasksContextProvider>
   );
 }
 

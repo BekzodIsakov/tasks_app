@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TasksContext } from "../context/TasksContext";
+import { actionTypes } from "../store/actionTypes";
 
 const NewTask = () => {
   const [text, setText] = useState("");
 
+  const { dispatch } = useContext(TasksContext);
+
   function handleSubmit(e) {
     e.preventDefault();
+    const id = Date.now();
 
+    dispatch({
+      type: actionTypes.add,
+      id,
+      text,
+    });
     setText("");
   }
 
