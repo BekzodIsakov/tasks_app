@@ -1,16 +1,19 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { TasksContext } from "../context/TasksContext";
 import { actionTypes } from "../store/actionTypes";
+import { createTask } from "../store/actions";
 
 const Task = ({ task }) => {
   const { id, text: initialText, done: initialDone } = task ? task : {};
 
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(initialText);
+  const [isDone, setIsDone] = useState(initialDone);
 
   const inputRef = useRef();
 
   const { state, dispatch } = useContext(TasksContext);
+  console.log({ isDone });
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,13 +26,12 @@ const Task = ({ task }) => {
     });
   }
 
+  useEffect(() => {
+    dispatch(createTask({ id, done: isDone }));
+  }, [isDone]);
+
   function handleDone(e) {
-    // console.log(isDone);
-    dispatch({
-      type: actionTypes.done,
-      id,
-      done: e.target.checked,
-    });
+    setIsDone(e.target.checked);
   }
 
   function handleDelete() {
