@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { TasksContext } from "../context/TasksContext";
-import { actionTypes } from "../store/actionTypes";
+import { createTask } from "../store/actions";
 
 const NewTask = () => {
   const [text, setText] = useState("");
@@ -9,13 +9,9 @@ const NewTask = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const id = Date.now();
 
-    dispatch({
-      type: actionTypes.add,
-      id,
-      text,
-    });
+    const id = Date.now();
+    dispatch(createTask({ id, text }));
     setText("");
   }
 

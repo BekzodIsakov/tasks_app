@@ -4,6 +4,7 @@ import { TasksContext } from "../context/TasksContext";
 
 const Tasks = () => {
   const { state } = useContext(TasksContext);
+  console.log(state);
 
   return (
     <div className='flex flex-col gap-3'>

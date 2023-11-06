@@ -28,7 +28,6 @@ export function TasksReducer(state, action) {
       return newTasks;
     }
     case actionTypes.done: {
-      console.log({ action });
       const newTasks = state.map((task) => {
         if (task.id === action.id) {
           console.log({ task });
