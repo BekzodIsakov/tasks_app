@@ -3,7 +3,7 @@ import { TasksContext } from "../context/TasksContext";
 import { actionTypes } from "../store/actionTypes";
 
 const Task = ({ task }) => {
-  const { id, text: initialText } = task ? task : {};
+  const { id, text: initialText, done: initialDone } = task ? task : {};
 
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(initialText);
@@ -11,7 +11,6 @@ const Task = ({ task }) => {
   const inputRef = useRef();
 
   const { state, dispatch } = useContext(TasksContext);
-  console.log(state);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,6 +20,15 @@ const Task = ({ task }) => {
       type: actionTypes.edit,
       id,
       text,
+    });
+  }
+
+  function handleDone(e) {
+    // console.log(isDone);
+    dispatch({
+      type: actionTypes.done,
+      id,
+      done: e.target.checked,
     });
   }
 
@@ -59,7 +67,7 @@ const Task = ({ task }) => {
 
   return (
     <div className='flex gap-4'>
-      <input type='checkbox' />
+      <input type='checkbox' onChange={handleDone} />
       {text}
       <div>
         <button onClick={() => setIsEditing(true)} className='mr-1'>
